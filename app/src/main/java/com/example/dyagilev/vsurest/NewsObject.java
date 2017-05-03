@@ -6,7 +6,7 @@ import com.google.gson.internal.Streams;
 
 import java.util.Date;
 
-public class Pojo {
+public class NewsObject {
 
     @SerializedName("Description")
     @Expose
@@ -28,9 +28,11 @@ public class Pojo {
     @Expose
     private String author;
 
-    public String getDescription() {
-        return description;
-    }
+    @SerializedName("Type")
+    @Expose
+    private String type;
+
+    public String getDescription() { return description; }
 
     public void setDescription(String description) {
         this.description = description;
@@ -67,4 +69,10 @@ public class Pojo {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) { this.type = type; }
 }

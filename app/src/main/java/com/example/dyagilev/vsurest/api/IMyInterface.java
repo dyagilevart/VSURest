@@ -1,6 +1,6 @@
 package com.example.dyagilev.vsurest.api;
 
-import com.example.dyagilev.vsurest.Pojo;
+import com.example.dyagilev.vsurest.NewsObject;
 
 import java.util.List;
 
@@ -14,5 +14,8 @@ import retrofit2.http.Path;
 
 public interface IMyInterface {
     @GET("/Service1.svc/findAll")
-    Call<List<Pojo>> getItems();
+    Call<List<NewsObject>> getItems();
+
+    @GET("/Service1.svc/find/{id}")
+    Call<List<NewsObject>> getItem(@Path("<id>") String variable);
 }
