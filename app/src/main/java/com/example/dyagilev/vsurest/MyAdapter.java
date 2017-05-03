@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
+
 public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<NewsObject> news;
     private Context context;
@@ -80,7 +83,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(itemView);
             context = itemView.getContext();
             title = (TextView) itemView.findViewById(R.id.title);
-            description = (TextView) itemView.findViewById(R.id.description);
+            description = (TextView) itemView.findViewById(R.id.view_description);
             author = (TextView) itemView.findViewById(R.id.author);
             date = (TextView) itemView.findViewById(R.id.date);
 
@@ -90,13 +93,30 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final Intent intent;
                     NewsObject news_object = news.get(getAdapterPosition());
-                    intent =  new Intent(context, ViewItem.class);
-                    intent.putExtra("item_id", news_object.getId().toString());
 
-                    context.startActivity(intent);
-                    //Toast.makeText(itemView.getContext(), "title: " + news_object.getTitle(), Toast.LENGTH_LONG).show();
+                    if (v.getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT) {
+                        final Intent intent;
+
+                        intent = new Intent(context, ViewItem.class);
+                        intent.putExtra("item_id", news_object.getId().toString());
+
+                        context.startActivity(intent);
+                    }
+                    else if (v.getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE){
+
+                        TextView title = (TextView) v.getRootView().findViewById(R.id.view_title);
+                        TextView description = (TextView) v.getRootView().findViewById(R.id.view_desc);
+                        TextView date = (TextView) v.getRootView().findViewById(R.id.view_date);
+                        TextView author = (TextView) v.getRootView().findViewById(R.id.view_author);
+
+                        title.setText(news_object.getTitle());
+                        description.setText(news_object.getDescription());
+                        date.setText(news_object.getDate());
+                        author.setText(news_object.getAuthor());
+
+                        //Toast.makeText(itemView.getContext(), "title: " + news_object.getTitle(), Toast.LENGTH_LONG).show();
+                    }
                 }
             });
 
@@ -110,7 +130,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public ViewHolderAdvert(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
-            description = (TextView) itemView.findViewById(R.id.description);
+            description = (TextView) itemView.findViewById(R.id.view_description);
         }
     }
 }

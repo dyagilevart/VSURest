@@ -1,14 +1,11 @@
 package com.example.dyagilev.vsurest;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +28,7 @@ public class ViewItem extends AppCompatActivity {
         String id = getIntent().getStringExtra("item_id");
 
         title = (TextView) findViewById(R.id.title);
-        description = (TextView) findViewById(R.id.description);
+        description = (TextView) findViewById(R.id.view_description);
         date = (TextView) findViewById(R.id.date);
         author = (TextView) findViewById(R.id.author);
 
