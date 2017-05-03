@@ -1,15 +1,19 @@
 package com.example.dyagilev.vsurest;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<NewsObject> news;
+    private Context context;
 
     public MyAdapter(List<NewsObject> news) {
         this.news = news;
@@ -72,12 +76,30 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView author;
         TextView date;
 
-        public ViewHolderNews(View itemView) {
+        public ViewHolderNews(final View itemView) {
             super(itemView);
+            context = itemView.getContext();
             title = (TextView) itemView.findViewById(R.id.title);
             description = (TextView) itemView.findViewById(R.id.description);
             author = (TextView) itemView.findViewById(R.id.author);
             date = (TextView) itemView.findViewById(R.id.date);
+
+            itemView.setClickable(true);
+            itemView.setFocusableInTouchMode(true);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Intent intent;
+                    NewsObject news_object = news.get(getAdapterPosition());
+                    intent =  new Intent(context, ViewItem.class);
+                    intent.putExtra("item_id", news_object.getId().toString());
+
+                    context.startActivity(intent);
+                    //Toast.makeText(itemView.getContext(), "title: " + news_object.getTitle(), Toast.LENGTH_LONG).show();
+                }
+            });
+
         }
     }
 

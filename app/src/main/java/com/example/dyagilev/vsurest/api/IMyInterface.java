@@ -17,5 +17,5 @@ public interface IMyInterface {
     Call<List<NewsObject>> getItems();
 
     @GET("/Service1.svc/find/{id}")
-    Call<List<NewsObject>> getItem(@Path("<id>") String variable);
+    Call<NewsObject> getItem(@Path("id") String variable);
 }
